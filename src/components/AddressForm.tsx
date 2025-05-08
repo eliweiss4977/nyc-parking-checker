@@ -62,7 +62,7 @@ export default function AddressForm() {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="bg-white rounded-xl shadow-lg p-6 max-w-md w-full">
-        <h1 className="text-2xl font-bold mb-2">NYC Parking Checker</h1>
+        <h1 className="text-2xl font-bold mb-2">NYC Parking Checker 🚗</h1>
         <p className="text-gray-600 mb-6">Enter an NYC address to find out if you need to move your car.</p>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
