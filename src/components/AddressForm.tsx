@@ -30,7 +30,7 @@ export default function AddressForm() {
       if (!match) return true
 
       const [
-        _unused,
+        ,
         startHourStr, startMinStr, startPeriod,
         endHourStr, endMinStr, endPeriod
       ] = match
