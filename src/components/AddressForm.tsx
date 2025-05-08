@@ -4,6 +4,8 @@ import { useState } from 'react'
 
 export default function AddressForm() {
   const [address, setAddress] = useState('')
+  const [date, setDate] = useState('')
+  const [time, setTime] = useState('')
   const [location, setLocation] = useState<{ lat: number; lng: number } | null>(null)
   const [restrictions, setRestrictions] = useState<string[]>([])
 
@@ -17,7 +19,7 @@ export default function AddressForm() {
     const signsRes = await fetch(`/api/parking?lat=${data.location.lat}&lng=${data.location.lng}`)
     const signsData = await signsRes.json()
 
-    const now = new Date()
+    const now = date && time ? new Date(`${date}T${time}`) : new Date()
     const day = now.toLocaleDateString('en-US', { weekday: 'long' }).toUpperCase()
 
     const matches = signsData.signs.filter((sign: { regulation?: string }) => {
@@ -68,6 +70,18 @@ export default function AddressForm() {
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           />
+          <input
+            className="w-full border p-2 rounded"
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
+          <input
+            className="w-full border p-2 rounded"
+            type="time"
+            value={time}
+            onChange={(e) => setTime(e.target.value)}
+          />
           <button className="bg-black text-white px-4 py-2 rounded" type="submit">
             Check
           </button>
@@ -88,7 +102,7 @@ export default function AddressForm() {
             ) : (
               location && (
                 <div className="mt-4 bg-green-100 text-green-700 border border-green-300 p-3 rounded">
-                  <p><strong>✅ You&apos;re good — no active restrictions found for today.</strong></p>
+                  <p><strong>✅ You&apos;re good — no active restrictions found for that time.</strong></p>
                 </div>
               )
             )}
@@ -97,4 +111,4 @@ export default function AddressForm() {
       </div>
     </div>
   )
-} 
+}
